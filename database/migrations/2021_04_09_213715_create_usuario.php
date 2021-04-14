@@ -19,6 +19,17 @@ class CreateUsuario extends Migration
             $table->integer('idade');
             $table->timestamps();
         });
+        
+        Schema::create('numero', function(Blueprint $table){
+            $table->id('uuid');
+            $table->unsignedBigInteger('id_usuario');
+            $table->string('numero');
+            $table->timestamps();
+            $table->foreign('id_usuario')
+                  ->references('uuid')
+                  ->on('usuario')
+                  ->onDelete('cascade');
+        });
     }
 
     /**
@@ -29,5 +40,6 @@ class CreateUsuario extends Migration
     public function down()
     {
         Schema::dropIfExists('usuario');
+        Schema::dropIfExists('numero');
     }
 }
