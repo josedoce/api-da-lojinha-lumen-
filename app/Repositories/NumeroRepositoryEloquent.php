@@ -1,18 +1,15 @@
 <?php
-/*
-    O repositorio ajuda na hora de organizar o controller.
-*/
-namespace App\Repositories;
+    namespace App\Repositories;
 
-use Illuminate\Http\Request;
-use App\Models\Usuario; //usaremos esse modelo no repositorio.
+use App\Models\Numero;
+use IlLuminate\Http\Request;
 
-class UsuarioRepositoryEloquent implements RepositoryInterface{
+class NumeroRepositoryEloquent implements RepositoryInterfaceNumero{
     private $model;
 
-    public function __construct(Usuario $usuario)
+    public function __construct(Numero $numero)
     {
-        $this->model = $usuario;
+        $this->model = $numero;
     }
 
     public function getAll()
