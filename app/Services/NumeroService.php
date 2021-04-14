@@ -2,29 +2,29 @@
 
 namespace App\Services;
 
-use App\Repositories\RepositoryInterface;
+use App\Repositories\RepositoryInterfaceNumero;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UsuarioService{
+class NumeroService{
 
-    private $usuarioRepository;
-    public function __construct( RepositoryInterface $usuarioRepository)
+    private $numeroRepository;
+    public function __construct( RepositoryInterfaceNumero $numeroRepository)
     {
         /*terei que configurar o uso da classe que implementou esta interface
-          no caso o UsuarioRepositoryEloquent em App\Providers\AppServiceProvider.php
+          no caso o numeroRepositoryEloquent em App\Providers\AppServiceProvider.php
         */
-        $this->usuarioRepository = $usuarioRepository;
+        $this->numeroRepository = $numeroRepository;
     }
 
     public function getAll()
     {
         /*coloque codigos para validação aqui se quiser*/
-        $usuarios = $this->usuarioRepository->getAll();
+        $numeros = $this->numeroRepository->getAll();
         try {
-            if(count($usuarios)>0){
-                return response()->json($this->usuarioRepository->getAll(), Response::HTTP_OK);
+            if(count($numeros)>0){
+                return response()->json($this->numeroRepository->getAll(), Response::HTTP_OK);
             }else{
                 return response()->json([], Response::HTTP_OK);
             }
@@ -36,25 +36,25 @@ class UsuarioService{
     public function get($id)
     {
         /*coloque codigos para validação aqui se quiser*/
-        return $this->usuarioRepository->get($id);
+        return $this->numeroRepository->get($id);
     }
 
     public function store(Request $request)
     {
         /*coloque codigos para validação aqui se quiser*/
-        return $this->usuarioRepository->store($request);
+        return $this->numeroRepository->store($request);
     }
 
     public function update($id, Request $request)
     {
         /*coloque codigos para validação aqui se quiser*/
-        return $this->usuarioRepository->update($id, $request);
+        return $this->numeroRepository->update($id, $request);
     }
 
     public function destroy($id)
     {
         /*coloque codigos para validação aqui se quiser*/
-        return $this->usuarioRepository->destroy($id);
+        return $this->numeroRepository->destroy($id);
     }
 
 }
