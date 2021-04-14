@@ -2,8 +2,11 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
-use App\Models\Usuarios;
+use App\Http\Controllers\NumeroController;
+use App\Models\Numero;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +21,17 @@ use Illuminate\Http\Request;
 //pega a variavel de ambiente mermao
 //return env("DB_USERNAME");
 
-$router->get('/{id}','UsuarioController@show');
+
+
+$router->get('/jose', function(){
+    $usuario = Usuario::find(1);
+    $usuario->numero;
+    return compact('usuario');
+});
+$router->get('/usuarios','UsuarioController@index');
+$router->get('/numeros', 'NumeroController@index');
+
+$router->post('/registro', function(Request $request){
+	return response($request,Response::HTTP_ACCEPTED);
+});
+
