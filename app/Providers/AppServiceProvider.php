@@ -13,10 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //para funcionar o service, temos que registrar a clase interface e a classe concreta
+        //para funcionar o service, temos que registrar a classe interface e a classe concreta
         //muito usado quando quer fazer troca de tipo de banco de dados orm, eloquent, etc...
-        $this->app->bind(
-            'App\Repositories\UsuarioRepositoryInterface','App\Repositories\UsuarioRepositoryEloquent'
-        );
+        $this->app->bind('App\Repositories\RepositoryInterface','App\Repositories\UsuarioRepositoryEloquent');
+        $this->app->bind('App\Repositories\RepositoryInterfaceNumero','App\Repositories\NumeroRepositoryEloquent');
+
     }
 }
