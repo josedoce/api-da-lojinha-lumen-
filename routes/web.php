@@ -2,9 +2,9 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
-use App\Http\Controllers\NumeroController;
-use App\Models\Numero;
+
 use App\Models\Usuario;
+use App\Routes\Rules;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -29,9 +29,7 @@ $router->get('/jose', function(){
     return compact('usuario');
 });
 $router->get('/usuarios','UsuarioController@index');
-$router->get('/numeros', 'NumeroController@index');
+$router->get('/numeros','NumeroController@index');
 
-$router->post('/registro', function(Request $request){
-	return response($request,Response::HTTP_ACCEPTED);
-});
+$router->post('/registro','UsuarioController@store');
 
