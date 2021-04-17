@@ -24,34 +24,41 @@
 
 ### :bust_in_silhouette:Visitante pode: 
 
-- [x] Criar usuario
+- [ ] Criar usuario
 
 ### :bust_in_silhouette: Usuario pode: 												 
-- [x] Logar
-- [x] Editar usuario
-- [x] Deletar usuario
-- [x] Finalizar sessão
-- [x] Se tornar cliente  
-- [x] Se tornar vendedor 
+- [ ] Logar
+- [ ] Autenticar-se
+- [ ] Lembrar-se
+- [ ] Pedir autorização-se
+- [ ] Editar usuario
+- [ ] Deletar usuario
+- [ ] Finalizar sessão
+- [ ] Se tornar cliente  
+- [ ] Se tornar vendedor 
 
 ### :bust_in_silhouette: Cliente pode: 	
 
-- [x] Comprar
-- [x] Cancelar compra
-- [x] Adicionar/Remover/Editar carrinho
-- [x] Adicionar/Remover favorito
-- [x] comentar/avaliar 
+- [ ] Comprar
+- [ ] Cancelar compra
+- [ ] Adicionar/Remover/Editar carrinho
+- [ ] Adicionar/Remover favorito
+- [ ] comentar/avaliar 
 
 ### :bust_in_silhouette: Vendedor pode: 	
 
-- [x] Vender
-- [x] Acessar dados do cliente
-- [x] Adicionar/Remover/Editar Produto
-- [x] Adicionar/Remover lista negra
-- [x] comentar/avaliar 
+- [ ] Vender
+- [ ] Acessar dados do cliente
+- [ ] Adicionar/Remover/Editar Produto
+- [ ] Adicionar/Remover lista negra
+- [ ] comentar/avaliar 
 
 ------
+### Tarefas cumpridas:
+- [x] Configurações seguras de headers
+- [x] Organização de codigo
 
+------
 ## Status do projeto:runner:
 
 > Status do Projeto: Em desenvolvimento :warning:
@@ -104,6 +111,9 @@
 ## Linguagens e libs utilizadas :books:
 
 - [Lumen](https://lumen.laravel.com/docs/8.x): versão 8
+- [helmet](https://helmetjs.github.io/see-also/): versão 7.1.0
+- [bcrypt](https://packagist.org/packages/polarising/bcrypt): versão 1
+- [uuid](https://uuid.ramsey.dev/en/latest/rfc4122/version4.html): versao 4
 
 ------
 
