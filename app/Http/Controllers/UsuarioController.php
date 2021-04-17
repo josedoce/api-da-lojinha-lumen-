@@ -7,11 +7,6 @@ use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     private $usuario;
     public function __construct(UsuarioService $usuario)
     {

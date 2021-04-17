@@ -7,7 +7,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 ))->bootstrap();
 
 date_default_timezone_set(env('APP_TIMEZONE', 'UTC'));
-
+header_remove("X-Powered-By");
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -80,6 +80,9 @@ $app->configure('app');
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
 
+$app->middleware([
+    \Bepsvpt\SecureHeaders\SecureHeadersMiddleware::class,
+]);
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers
@@ -91,10 +94,12 @@ $app->configure('app');
 |
 */
 
+$app->register(Bepsvpt\SecureHeaders\SecureHeadersServiceProvider::class);
 $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
+//helmet
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

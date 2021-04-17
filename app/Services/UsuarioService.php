@@ -6,6 +6,9 @@ use App\Repositories\RepositoryInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Ramsey\Uuid\Uuid;
+use Bcrypt\Bcrypt;
+use Firebase\JWT\JWT;
 
 class UsuarioService{
 
@@ -41,8 +44,22 @@ class UsuarioService{
 
     public function store(Request $request)
     {
-        /*coloque codigos para validação aqui se quiser*/
-        return $this->usuarioRepository->store($request);
+        /*coloque codigos para validação aqui se quiser8*/
+        $bcrypt = new Bcrypt();
+        $senha = "12345";
+        $hash = $bcrypt->encrypt("12345", '2a');
+        $usuarioOk = $bcrypt->verify($senha, $hash)?"senha certa":"senha incorreta";
+
+        $uuid = Uuid::uuid4();
+        $chave = 'gatofoda';
+        $dados = ['nome'=>'joseildo'];
+        $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJub21lIjoiam9zZWlsZG8ifQ.ddCs5Kf9bO1I9qMWGwTDvBu1uWZ2a4OiMplxnwRG3K4';
+        $jwt = JWT::encode($dados, $chave);
+
+        $dec = JWT::decode($token,$chave, array('HS256'));
+
+        return $dec;
+        //return $this->usuarioRepository->store($request);
     }
 
     public function update($id, Request $request)

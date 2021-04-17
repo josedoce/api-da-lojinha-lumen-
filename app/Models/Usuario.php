@@ -17,7 +17,8 @@ class Usuario extends Model implements AuthenticatableContract, AuthorizableCont
 
     protected $fillable = [
         "nome",
-        "idade"
+        "email",
+        "senha"
     ];
     protected $hidden = [
         "created_at",
