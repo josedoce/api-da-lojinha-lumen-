@@ -49,9 +49,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        //desabilite em produção
         return parent::render($request, $exception);
-        //habilite em producao
-        //return view('erro');
     }
 }
