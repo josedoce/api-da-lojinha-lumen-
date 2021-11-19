@@ -7,11 +7,6 @@ use Illuminate\Http\Request;
 
 class NumeroController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     private $numero;
     public function __construct(NumeroService $numero)
     {

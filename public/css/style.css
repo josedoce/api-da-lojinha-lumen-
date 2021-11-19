@@ -1,0 +1,100 @@
+		body{
+			background-color: #404040;
+			display: flex;
+			justify-content: center;
+			font-family: sans-serif;
+		}
+		.main{
+			max-width: 1000px;
+		}
+		.title {
+			color: white;
+			font-size: 30px;
+			font-weight: bold;
+		}
+		.base_url{
+			color: whitesmoke;
+			font-size: 20px;
+		}
+		.accordion {
+			position: relative;
+			display: flex;
+			justify-content: space-between;
+		  background-color: #eee;
+		  color: #444;
+		  cursor: pointer;
+		  padding: 18px 60px;
+		  width: 100%;
+		  border: 2px solid black;
+		  text-align: left;
+		  outline: none;
+		  font-size: 15px;
+		  font-weight: bold;
+		  transition: 0.4s;
+		}
+
+		.accordion:after {
+			position: absolute;
+			right: 30px;
+		  content: '\002B';
+		  color: #777;
+		  font-weight: bold;
+		  margin-left: 5px;
+		}
+
+		.active:after {
+		  content: "\2212";
+		}
+
+		.panel {
+		  padding: 0 18px;
+		  background-color: white;
+		  max-height: 0;
+		  overflow: hidden;
+		  transition: max-height 0.2s ease-out;
+		}
+
+		.get {
+		  border-color: #04AA6D;
+		  color: green;
+		}
+		.get:hover {
+		  background-color: #04AA6D;
+		  color: white;
+		}
+		.post {
+		  border-color: #2196F3;
+		  color: dodgerblue;
+		}
+		.post:hover {
+		  background: #2196F3;
+		  color: white;
+		}
+		.put {
+		  border-color: #ff9800;
+		  color: orange;
+		}
+
+		.put:hover {
+		  background: #ff9800;
+		  color: white;
+		}
+
+		.delete {
+		  border-color: #f44336;
+		  color: red;
+		}
+
+		.delete:hover {
+		  background: #f44336;
+		  color: white;
+		}
+
+		.default {
+		  border-color: #e7e7e7;
+		  color: black;
+		}
+
+		.default:hover {
+		  background: #e7e7e7;
+		}

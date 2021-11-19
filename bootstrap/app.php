@@ -1,5 +1,8 @@
 <?php
 
+use Carbon\Carbon;
+use Dusterio\LumenPassport\LumenPassport;
+
 require_once __DIR__.'/../vendor/autoload.php';
 
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
@@ -23,7 +26,7 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+$app->withFacades();
 
 $app->withEloquent();
 
@@ -60,7 +63,7 @@ $app->singleton(
 */
 
 $app->configure('app');
-
+$app->configure('auth');
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -75,10 +78,11 @@ $app->configure('app');
 // $app->middleware([
 //     App\Http\Middleware\ExampleMiddleware::class
 // ]);
-
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+//Usaremos o basico do basico
+$app->routeMiddleware([
+    'admin' =>App\Http\Middleware\AdminMiddleware::class,
+    'user'=>App\Http\Middleware\UserMiddleware::class,
+]);
 
 $app->middleware([
     \Bepsvpt\SecureHeaders\SecureHeadersMiddleware::class,
@@ -93,7 +97,6 @@ $app->middleware([
 | totally optional, so you are not required to uncomment this line.
 |
 */
-
 $app->register(Bepsvpt\SecureHeaders\SecureHeadersServiceProvider::class);
 $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
@@ -111,10 +114,10 @@ $app->register(App\Providers\AppServiceProvider::class);
 |
 */
 
-$app->router->group([
+$app->router->group(['prefix'=>'api/',
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
-    require __DIR__.'/../routes/web.php';
+    require __DIR__ . './../routes/web.php';
 });
 
 return $app;

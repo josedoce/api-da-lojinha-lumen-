@@ -4,6 +4,7 @@
     "keywords": ["framework", "laravel", "lumen"],
     "license": "MIT",
     "type": "project",
+
     "require": {
         "php": "^7.3|^8.0",
         "bepsvpt/secure-headers": "^7.1",

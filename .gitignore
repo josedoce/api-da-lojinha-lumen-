@@ -1,6 +1,9 @@
+/node_modules
 /vendor
 /.idea
 Homestead.json
 Homestead.yaml
 .env
 .phpunit.result.cache
+.project
+.buildpath

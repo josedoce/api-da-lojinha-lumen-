@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsuario extends Migration
+class CreateCliente extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,23 @@ class CreateUsuario extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
+        Schema::create('cliente', function (Blueprint $table) {
+            $table->uuid('uuid')->primary();
+            $table->string('nome');
+            $table->string('sobrenome');
             $table->string('email');
-            $table->string('password');
-            $table->string('role')->default('user');
-            $table->string('noToken')->nullable();
-            $table->timestamp('last_logged_in')->nullable();
+            $table->string('senha');
+            $table->string('isCliente')->default('false');
+            $table->string('isVendedor')->default('false');
+            $table->string('agencia')->nullable(true);
+            $table->string('conta')->nullable(true);
+            $table->string('cpf_cnpj')->nullable(true);
+            $table->string('n_cartao')->nullable(true);
+            $table->string('titular')->nullable(true);
+            $table->string('validade')->nullable(true);
+            $table->string('endereco')->nullable(true);
+            $table->string('celular')->nullable(true);
+            $table->string('token');
             $table->timestamps();
         });
 
@@ -44,7 +53,7 @@ class CreateUsuario extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usuario');
+        Schema::dropIfExists('cliente');
         //Schema::dropIfExists('numero');
     }
 }

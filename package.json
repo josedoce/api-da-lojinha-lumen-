@@ -1,0 +1,15 @@
+{
+  "name": "api-da-lojinha-lumen-",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "fake": "node ./database/convert.js"
+  },
+  "repository": "git@github.com:josedoce/api-da-lojinha-lumen-.git",
+  "author": "JAS <66434808+josedoce@users.noreply.github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "fs": "^0.0.1-security"
+  }
+}
