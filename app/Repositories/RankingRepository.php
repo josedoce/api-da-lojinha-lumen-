@@ -20,8 +20,15 @@ class RankingRepository implements IRankingRepo
         return $this->rankingModel->all();
     }
 
-    public function getAllPaginated($data,$index){
-        return $this->rankingModel->where($data[0], $data[1])->paginate($index);
+    public function getCount($column, $cell): int {
+        $ranking = $this->rankingModel->where($column, $cell)->first();
+        return $ranking->products()->count();
+    }
+
+    public function getAllPaginated($data = [], $offset = 0, $limit = 5){
+        $ranking = $this->rankingModel->where($data[0],$data[1])->first();
+        $products = $ranking->products()->offset($offset)->limit($limit)->get();
+        return ['data'=>$products];
     }
     public function get($id)
     {
@@ -44,4 +51,5 @@ class RankingRepository implements IRankingRepo
         return $this->rankingModel->find($id)
             ->delete();
     }
+
 }

@@ -15,16 +15,7 @@ class CreateRanking extends Migration
     {
         Schema::create('ranking', function (Blueprint $table) {
             $table->id('id');
-            //$table->unsignedBigInteger('product_id');
-            $table->boolean('promotions_day')->default(0);
-            $table->integer('most_sold')->default(0);
-            $table->decimal('best_sellers')->default(0.0);
-            $table->decimal('appraised')->default(0.0);
-            $table->timestamps();
-            $table->foreignId('product_id')
-                ->references('id')
-                ->on('product')
-                ->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('qualification')->nullable(false);
         });
     }
 

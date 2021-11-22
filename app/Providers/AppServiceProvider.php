@@ -21,5 +21,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('App\Repositories\interfaces\IUserRepo', 'App\Repositories\UserRepository');
         $this->app->bind('App\Repositories\interfaces\IRankingRepo', 'App\Repositories\RankingRepository');
         $this->app->bind('App\Repositories\interfaces\IProductRepo','App\Repositories\ProductRepository');
+        $this->app->bind('App\Repositories\interfaces\ICategoryRepo', 'App\Repositories\CategoryRepository');
+        $this->app->bind('App\Repositories\interfaces\IAnnouncementsRepo', 'App\Repositories\AnnouncementsRepository');
     }
 }

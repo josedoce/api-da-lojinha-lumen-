@@ -5,8 +5,9 @@ $router->get('/', function(){
 });
 
 
+$router->get('/test', 'ShowcaseController@test');
 $router->get('/home', 'ShowcaseController@home');
-$router->get('/page/{category}', 'ShowcaseController@page');
+$router->get('/page[/{category}]', 'ShowcaseController@page');
 
 $router->post('/signup','UserController@signUp');
 $router->post('/sign', 'UserController@signIn');

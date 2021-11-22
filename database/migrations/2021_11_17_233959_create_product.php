@@ -23,14 +23,17 @@ class CreateProduct extends Migration
             $table->integer('sold_quantity')->default(0);
             $table->string('image')->nullable(false);
             $table->timestamps();
+            $table->foreignId('category_id')
+                ->references('id')
+                ->on('categories')
+                ->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('ranking_id')
+                ->references('id')
+                ->on('ranking')
+                ->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('product');

@@ -362,9 +362,10 @@ const dados = [
 ];
 
 //INSERT INTO product () VALUES ();
-let query = "";
-let qtd = 100;
-for(let z = 0; z < dados.length; z++){
+function generateProducts(dados, seed=false, ddl=false){
+    let query = "";
+    let seeder = "";
+    for(let z = 0; z < dados.length; z++){
         let chaves = Object.keys(dados[z]);
         let data = Object.values(dados[z]);
         let columns = "";
@@ -382,20 +383,114 @@ for(let z = 0; z < dados.length; z++){
             }else{
                 valueok = data[i];
             }
-            if(chaves[i] == 'name' || chaves[i] == 'value'){
-                chaveok = '`'+chaves[i]+'`';
+
+            chaveok = '`'+chaves[i]+'`';
+
+            if(ddl){
+                columns = columns.concat((i!=0?',':'')+chaveok);
+                values = values.concat((i!=0?',':'')+valueok);
+            }
+        }
+
+        if(ddl){
+            let ue = "`product`";
+            query = query.concat(`INSERT INTO ${ue} VALUES (${values});\n`);
+        }
+
+        let objeto = "";
+        for(let g = 0; g < chaves.length; g++){
+            let valueok = '';
+            let chaveok = '';
+            if(chaves[g]!='id' && chaves[g] != 'available' && chaves[g] != 'sold_quantity' && chaves[g] != 'value'){
+                if(chaves[g]=='created_at' || chaves[g] =='updated_at'){
+                    valueok = '\''+data[g].split('.')[0]+'\'';
+                }else {
+                    valueok = '\'' + data[g] + '\'';
+                }
             }else{
-                chaveok = chaves[i];
+                valueok = data[g];
             }
 
-            columns = columns.concat((i!=0?',':'')+chaveok);
-            values = values.concat((i!=0?',':'')+valueok);
+            objeto = objeto.concat(
+                `   '${chaves[g]}'=>${valueok},\n`
+            );
         }
-        let ue = "`product`";
-        query = query.concat(`INSERT INTO ${ue} VALUES (${values});\n`);
+
+        if(seed){
+            seeder = seeder.concat("[\n"+objeto+"   'category_id'=>"+Math.round(Math.random() * 44)+"\n],\n");
+        }
+    }
+    if(seed){
+        console.log("$data = ["+seeder+"];");
+    }
+    if(ddl){
+        console.log(query);
+    }
 }
 
+//generateProducts(dados, true, false);
+function generateRanking(dados = [], seed=false, ddl=false){
+    let subDdl = "INSERT INTO `api-lojinha-lumen`.`ranking` (`id`, `promotions_day`, `most_sold`, `created_at`, `updated_at`, `product_id`) VALUES";
+    let query = seed?"[\n":"";
+    for(let i =0; i < dados.length; i++){
+        let timestamp = new Date().toISOString().split('.')[0];
+        let promotionsDay = Math.round(Math.random() * 1);
+        let mostSold = Math.round(Math.random() * 1);
+        if(ddl){
+            query = query.concat(subDdl+` ('${i+1}', '${promotionsDay}', '${mostSold}', '${timestamp}', '${timestamp}', '${dados[i].id}');\n`);
+        }
+        if(seed){
+            query = query.concat(`[\n'id'=>'${i+1}',\n 'promotions_day'=>'${promotionsDay}',\n'most_sold'=>'${mostSold}',\n 'created_ad'=>'${timestamp}',\n 'updated_at'=>'${timestamp}',\n 'product_id'=>'${dados[i].id}'\n],\n`);
+        }
 
+    }
+    if(seed){
+        query = query.concat("];\n");
+    }
+    console.log(query);
+}
+//generateRanking(dados, true);
+function retira_acentos(str)
+{
 
+    let com_acento = "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝŔÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿŕ";
 
-console.log(query)
+    let sem_acento = "AAAAAAACEEEEIIIIDNOOOOOOUUUUYRsBaaaaaaaceeeeiiiionoooooouuuuybyr";
+    let novastr="";
+    for(i=0; i<str.length; i++) {
+        troca=false;
+        for (a=0; a<com_acento.length; a++) {
+            if (str.substr(i,1)==com_acento.substr(a,1)) {
+                novastr+=sem_acento.substr(a,1);
+                troca=true;
+                break;
+            }
+        }
+        if (troca==false) {
+            novastr+=str.substr(i,1);
+        }
+    }
+    return novastr;
+}
+function generateCategory(seed = false,ddl=false){
+    const i = ['Acessórios de Tecnologia', 'Ar e Ventilação', 'Artesanato', 'Artigos para Festa', 'Áudio', 'Automotivo', 'Bebês', 'Beleza &amp; Perfumaria', 'Bem-estar Sexual', 'Brinquedos', 'Cama, Mesa e Banho', 'Câmeras e Drones', 'Casa e Construção', 'Casa Inteligente', 'Celular e Smartphone', 'Colchões', 'Comércio e Indústria', 'Cursos', 'Decoração', 'Eletrodomésticos', 'Eletroportáteis', 'Esporte e Lazer', 'Ferramentas', 'Filmes e Séries', 'Games', 'Informática', 'Instrumentos Musicais', 'Livros', 'Mercado', 'Moda', 'Móveis', 'Música e Shows', 'Natal', 'Papelaria', 'Pet Shop', 'Relógios', 'Saúde e Cuidados Pessoais', 'Serviços', 'Suplementos Alimentares', 'Tablets, iPads e E-Readers', 'Telefonia Fixa', 'TV e Vídeo', 'Utilidades Domésticas', 'Black Friday', 'Consórcio Luiza', ' Seguro Casa Protegida', 'Cliente Ouro'];
+    let sub = "INSERT INTO `api-lojinha-lumen`.`categories` (`id`,`category`,`slug`) VALUES";
+    let query = "";
+    let seeder = "";
+    for(let j =0; j<44;j++){
+        if(ddl){
+            query = query.concat(sub+` (${j+1}, '${i[j]}','${retira_acentos(i[j]).replaceAll('-','_').replaceAll(/(\s|,\s)/g,'-').toLowerCase()}');\n`)
+        }
+        if(seed){
+            seeder = seeder.concat(`[\n 'id'=>${j+1},\n 'category'=>'${i[j]}',\n 'slug'=>'${retira_acentos(i[j]).replaceAll('-','_').replaceAll(/(\s|,\s)/g,'-').toLowerCase()}'\n],\n`)
+        }
+    }
+    if(seed){
+        console.log("$dados = [\n"+seeder+"];");
+    }
+    if(ddl){
+        console.log(query);
+    }
+
+}
+generateCategory(true, false);

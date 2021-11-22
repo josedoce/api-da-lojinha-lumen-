@@ -1,15 +1,19 @@
 {
-  "name": "api-da-lojinha-lumen-",
+  "name": "api-da-lojinha-lumen",
   "version": "1.0.0",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "fake": "node ./database/convert.js"
+      "fake": "node ./database/convert.js",
+      "start": "php -S localhost:8000 -t public",
+      "ref": "php artisan migrate:refresh && php artisan db:seed",
+      "mkm": "php artisan make:migration",
+      "seed": "php artisan db:seed",
+      "c:install": "composer require",
+      "c:remove": "composer remove"
   },
   "repository": "git@github.com:josedoce/api-da-lojinha-lumen-.git",
   "author": "JAS <66434808+josedoce@users.noreply.github.com>",
-  "license": "MIT",
-  "dependencies": {
-    "fs": "^0.0.1-security"
-  }
+  "license": "MIT"
+
 }
