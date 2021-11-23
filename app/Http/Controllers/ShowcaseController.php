@@ -56,20 +56,47 @@ class ShowcaseController extends Controller
     }
 
     public function home(Request $request){
+        define("HOME_REGEX", 'regex:/^[0-9]{1,6}-[0-9]{1,2}$/');
         $this->validate($request,[
             'ulp'=>'integer|min:1|max:12',
-            'promotions_day'=>'regex:/^[0-9]{1,6}-[0-9]{1,2}$/'
+            'promotions_day'=>HOME_REGEX,
+            'most_sold'=>HOME_REGEX,
+            'best_sellers'=>HOME_REGEX,
+            'appraised'=>HOME_REGEX,
+            'announcements'=>HOME_REGEX,
         ],[
             'ulp.integer'=>'The \'ulp\' must be an integer.',
             'ulp.max'=>'The \'ulp\' must have between 1 and :max.',
             'ulp.min'=>'The \'ulp\' must have between :min and 12.',
-
-            'promotions_day.regex'=>'The \'promotions_day\' must have between 0-999999 == ?p=[page-limit]'
+            'promotions_day.regex'=>'The \'promotions_day\' must have between 0-99 == ?p=[page-limit]',
+            'most_sold.regex'=>'The \'most_sold\' must have between 0-99 == ?p=[page-limit]',
+            'best_sellers.regex'=>'The \'best_sellers\' must have between 0-99 == ?p=[page-limit]',
+            'appraised.regex'=>'The \'appraised\' must have between 0-99 == ?p=[page-limit]',
+            'announcements.regex'=>'The \'announcements\' must have between 0-99 == ?p=[page-limit]',
         ]);
+
         return $this->showcaseService->getHome($request);
     }
 
-    public function page(Request $request, $category='todos'){
+    public function page(Request $request, $category = 'todos'){
+        define('PAGE_REGEX','regex:/^[0-9]{1,2}$/');
+
+        $this->validate($request, [
+            'ulp'=>'integer|min:1|max:12',
+            'rp'=>PAGE_REGEX,
+            'p'=>'regex:/^[0-9]{1,6}$/',
+            'order'=>array('regex:/^(desc|asce)-[a-z|A-Z]+$/')
+        ],[
+            'ulp.max'=>'The \'ulp\' must have between 1 and :max.',
+            'ulp.integer'=>'The \'ulp\' must be an integer.',
+            'rp.regex'=>'The \'rp(result per page)\' must have between 0-99 == ?rp=[99]',
+            'p.regex'=>'The \'p(page)\' must have between 0-999999 and must be an integer',
+        ]);
+        $hasCategory = $this->categoryRepo->hasCategory($category);
+        if(!$hasCategory) {
+            return response(['category'=>'The \''.$category.'\' don\'t exist.'],404);
+        }
+
         return $this->showcaseService->getPage($request, $category);
     }
 }

@@ -31,6 +31,15 @@ class CategoryRepository implements ICategoryRepo
         return $count->products()->count();
     }
 
+    public function hasCategory($category,$by='slug'):bool{
+        if($category == 'todos'){
+            return true;
+        }
+        $data = $this->categoryModel->where($by, $category)->get();
+        if(count($data)!=0) return true;
+        return false;
+    }
+
     private function getProducts($data, $offset, $limit, $order = ['asce'=>'id']){
         $category = $this->categoryModel->where($data[0], $data[1])->first();
 
@@ -42,6 +51,5 @@ class CategoryRepository implements ICategoryRepo
 
         return $products;
     }
-
 
 }

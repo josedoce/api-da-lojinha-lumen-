@@ -33,13 +33,15 @@ class ShowcaseService
     }
 
     public function getPage(Request $request, $category){
-        $ulp = $request->query('ulp',4);
-        $page = $this->makeValidValueNumeric($request->query('p'));
+        $ulp = $request->query('ulp');
+        if(!$ulp) $ulp = 4;
+        $page = $request->query('p');
+        if(!$page) $page = 1;
         $resultPerPage = $this->makeValidValueNumeric($request->query('rp'));
         $category = !is_numeric($category)?$category:'todos';
         $order = !is_numeric($request->query('order'))?$request->query('order'):'asce-id';
         $filter = [
-            'p'=>$page,
+
             'rp'=>$resultPerPage
         ];
 
@@ -49,7 +51,7 @@ class ShowcaseService
         $filter['order']=$order;
 
         //relacionado a paginação.
-        $page = $filter['p'];
+
         $resultPerPage = $filter['rp'];
 
 
