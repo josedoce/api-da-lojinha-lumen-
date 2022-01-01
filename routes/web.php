@@ -22,5 +22,5 @@ $router->group(['middleware'=>'admin'], function () use($router) {
 });
 
 $router->group(['middlware'=>'client'], function () use($router){
-    $router->get('/', 'ClientController@getCar');
+    $router->get('/client', 'ClienteController@listar');
 });
