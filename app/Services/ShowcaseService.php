@@ -2,7 +2,6 @@
 namespace App\Services;
 
 use App\Exceptions\ApiException;
-use App\Http\Responses\Promotion;
 use App\Repositories\AnnouncementsRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ProductRepository;
@@ -261,5 +260,4 @@ class ShowcaseService
     private function makeValidValueNumeric($value){
         return $value!=""&&$value!=null&&$value>0?$value:'5';
     }
-
 }
